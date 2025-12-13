@@ -1,0 +1,202 @@
+[
+  {
+    "name": "Hasan Ahmed",
+    "educational_institution": "University of Dhaka",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/1f7nxWdd/tea4.jpg",
+    "email": "hasan.ahmed@example.com",
+    "description": "Experienced tutor for Class 8–A Level, specializing in Mathematics and Science.",
+    "expected_salary": "8000 BDT",
+    "date_created": "2025-01-05T10:32:15"
+  },
+  {
+    "name": "Sadman Rahman",
+    "educational_institution": "BRAC University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/JwfdsBwK/tea3.jpg",
+    "email": "sadman.rahman@example.com",
+    "description": "Dedicated tutor with expertise in English and O-Level Literature.",
+    "expected_salary": "9500 BDT",
+    "date_created": "2025-01-06T14:20:41"
+  },
+  {
+    "name": "Tareq Hossain",
+    "educational_institution": "North South University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/bgSmycRX/tea5.jpg",
+    "email": "tareq.hossain@example.com",
+    "description": "Specializes in Physics and Chemistry for Class 9, O-Level, and A-Level students.",
+    "expected_salary": "12000 BDT",
+    "date_created": "2025-01-08T09:12:44"
+  },
+  {
+    "name": "Nazmul Islam",
+    "educational_institution": "Jahangirnagar University",
+    "location": "Savar, Bangladesh",
+    "photo": "https://i.ibb.co.com/7dYphz1D/tea2.webp",
+    "email": "nazmul.islam@example.com",
+    "description": "Professional tutor focused on Biology and General Science.",
+    "expected_salary": "8500 BDT",
+    "date_created": "2025-01-09T12:55:03"
+  },
+  {
+    "name": "Imran Kabir",
+    "educational_institution": "Ahsanullah University of Science and Technology",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/gFXDDRjL/tea1.jpg",
+    "email": "imran.kabir@example.com",
+    "description": "Math expert teaching Class 8–A Level students with a friendly approach.",
+    "expected_salary": "15000 BDT",
+    "date_created": "2025-01-10T16:10:19"
+  },
+  {
+    "name": "Maliha Chowdhury",
+    "educational_institution": "East West University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/Fbw7CmQw/woman1.jpg",
+    "email": "maliha.chowdhury@example.com",
+    "description": "English and Social Science tutor helping students build strong fundamentals.",
+    "expected_salary": "9000 BDT",
+    "date_created": "2025-01-11T11:40:28"
+  },
+  {
+    "name": "Shahriar Islam",
+    "educational_institution": "Bangladesh University of Professionals",
+    "location": "Mirpur, Bangladesh",
+    "photo": "https://i.ibb.co.com/1f7nxWdd/tea4.jpg",
+    "email": "shahriar.islam@example.com",
+    "description": "Expert tutor for Physics and Mathematics for O/A Level.",
+    "expected_salary": "11000 BDT",
+    "date_created": "2025-01-12T15:20:35"
+  },
+  {
+    "name": "Abdur Rahim",
+    "educational_institution": "Eden College",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/bgSmycRX/tea5.jpg",
+    "email": "abudur.rahim@example.com",
+    "description": "Teaches Bangla and English for Class 8 and Class 9 students.",
+    "expected_salary": "8000 BDT",
+    "date_created": "2025-01-13T09:45:12"
+  },
+  {
+    "name": "Farhan Khan",
+    "educational_institution": "American International University-Bangladesh",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/7dYphz1D/tea2.webp",
+    "email": "farhan.khan@example.com",
+    "description": "Friendly tutor specializing in ICT and General Mathematics.",
+    "expected_salary": "10500 BDT",
+    "date_created": "2025-01-14T18:12:55"
+  },
+  {
+    "name": "Lamia Siddique",
+    "educational_institution": "United International University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/Fbw7CmQw/woman1.jpg",
+    "email": "lamia.siddique@example.com",
+    "description": "Helps students with English Grammar, Writing, and O-Level English Language.",
+    "expected_salary": "9500 BDT",
+    "date_created": "2025-01-15T08:33:47"
+  },
+  {
+    "name": "Jubayer Hasan",
+    "educational_institution": "Khulna University of Engineering & Technology",
+    "location": "Khulna, Bangladesh",
+    "photo": "https://i.ibb.co.com/gFXDDRjL/tea1.jpg",
+    "email": "jubayer.hasan@example.com",
+    "description": "Math and Physics tutor with a focus on problem-solving skills.",
+    "expected_salary": "13000 BDT",
+    "date_created": "2025-01-16T13:25:50"
+  },
+  {
+    "name": "Mim Tanjin",
+    "educational_institution": "Rajshahi University",
+    "location": "Rajshahi, Bangladesh",
+    "photo": "https://i.ibb.co.com/bgSmycRX/tea5.jpg",
+    "email": "mim.tanjin@example.com",
+    "description": "Biology tutor for Class 9 and O-Level students.",
+    "expected_salary": "8200 BDT",
+    "date_created": "2025-01-17T11:11:29"
+  },
+  {
+    "name": "Omar Faruk",
+    "educational_institution": "Islamic University of Technology",
+    "location": "Gazipur, Bangladesh",
+    "photo": "https://i.ibb.co.com/gFXDDRjL/tea1.jpg",
+    "email": "omar.faruk@example.com",
+    "description": "Specialist in Chemistry for O-Level and A-Level.",
+    "expected_salary": "14000 BDT",
+    "date_created": "2025-01-18T17:44:56"
+  },
+  {
+    "name": "Ayesha Noor",
+    "educational_institution": "Chittagong University",
+    "location": "Chittagong, Bangladesh",
+    "photo": "https://i.ibb.co.com/1f7nxWdd/tea4.jpg",
+    "email": "ayesha.noor@example.com",
+    "description": "Dedicated English and Social Studies tutor.",
+    "expected_salary": "8800 BDT",
+    "date_created": "2025-01-19T10:05:14"
+  },
+  {
+    "name": "Tanvir Rahim",
+    "educational_institution": "Independent University Bangladesh",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/7dYphz1D/tea2.webp",
+    "email": "tanvir.rahim@example.com",
+    "description": "Mathematics and ICT tutor with 3+ years’ experience.",
+    "expected_salary": "12000 BDT",
+    "date_created": "2025-01-20T09:50:21"
+  },
+  {
+    "name": "Samia Yasmin",
+    "educational_institution": "North South University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/JwfdsBwK/tea3.jpg",
+    "email": "samia.yasmin@example.com",
+    "description": "Teaches English, Bangla, and Basic Science for Class 8–9.",
+    "expected_salary": "8000 BDT",
+    "date_created": "2025-01-21T14:32:17"
+  },
+  {
+    "name": "Fahim Siddiqui",
+    "educational_institution": "BRAC University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/gFXDDRjL/tea1.jpg",
+    "email": "fahim.siddiqui@example.com",
+    "description": "Expert in Physics and Higher Math for O/A Level.",
+    "expected_salary": "15000 BDT",
+    "date_created": "2025-01-22T16:40:02"
+  },
+  {
+    "name": "Rafia Tabassum",
+    "educational_institution": "Jahangirnagar University",
+    "location": "Savar, Bangladesh",
+    "photo": "https://i.ibb.co.com/1f7nxWdd/tea4.jpg",
+    "email": "rafia.tabassum@example.com",
+    "description": "Focuses on Biology and General Science for Class 9 and O-Level.",
+    "expected_salary": "9300 BDT",
+    "date_created": "2025-01-23T12:15:11"
+  },
+  {
+    "name": "Kazi Mahmud",
+    "educational_institution": "Bangladesh University of Engineering & Technology",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/gFXDDRjL/tea1.jpg",
+    "email": "kazi.mahmud@example.com",
+    "description": "Highly experienced Mathematics tutor for Class 8–A Level.",
+    "expected_salary": "13500 BDT",
+    "date_created": "2025-01-24T09:55:48"
+  },
+  {
+    "name": "Nadia Karim",
+    "educational_institution": "East West University",
+    "location": "Dhaka, Bangladesh",
+    "photo": "https://i.ibb.co.com/bgSmycRX/tea5.jpg",
+    "email": "nadia.karim@example.com",
+    "description": "English and Social Science specialist helping students improve confidence.",
+    "expected_salary": "9000 BDT",
+    "date_created": "2025-01-25T18:20:33"
+  }
+]
