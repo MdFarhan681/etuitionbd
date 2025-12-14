@@ -19,8 +19,8 @@ export const router = createBrowserRouter([
         path: "/",
         Component: Home,
           loader: async () => {
-          const tuitions = await fetch("http://localhost:3000/tuitions");
-          const tuitors = await fetch("http://localhost:3000/tuitors");
+          const tuitions = await fetch("http://localhost:3000/home/tuitions");
+          const tuitors = await fetch("http://localhost:3000/home/tuitors");
 
           return {
             tuitions: await tuitions.json(),
@@ -32,12 +32,12 @@ export const router = createBrowserRouter([
         path: "/allTuitions",
         Component: Alltuitions,
         loader: () =>
-            fetch("http://localhost:3000/tuitions"),
+            fetch("http://localhost:3000/home/tuitions"),
       },
       {
         path: "/allTuitors",
         Component: AllTuitors,
-        loader: () =>   fetch("http://localhost:3000/tuitors"),
+        loader: () =>   fetch("http://localhost:3000/home/tuitors"),
       },
       {
         path: "/contact",

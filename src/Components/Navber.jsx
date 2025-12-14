@@ -166,8 +166,11 @@ console.log(user)
               Login
             </Link>
           )} 
+
         </div>
-      </div></div>
+      </div>
+
+      </div>
      
     </>
   );

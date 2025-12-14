@@ -6,6 +6,7 @@ import { PiEyeClosed } from "react-icons/pi";
 import { BsEyeglasses } from "react-icons/bs";
 import { AuthContext } from "../../Components/Provider/AuthProvider";
 import image from "../../assets/image.png";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const location = useLocation();
@@ -29,63 +30,116 @@ const Register = () => {
       {label}
     </button>
   );
-console.log(role)
 
-  const handleSub = (e) => {
-    e.preventDefault();
-    setLoading(true);
 
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const photo = form.photo.value;
-    const password = form.password.value;
-    const phone = form.phone.value;
+const handleSub = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    console.log(name,email,photo,password,phone,role)
+  const form = e.target;
+  const name = form.name.value;
+  const email = form.email.value;
+  const photo = form.photo.value;
+  const password = form.password.value;
+  const phone = form.phone.value;
 
-    //password checking
-    const isValid = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
-    if (!isValid) {
-      toast.error(
-        "Password must include uppercase,lowercase and at least 6 characters"
-      );
-      setLoading(false);
+  // Password validation
+  if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
+    toast.error("Password must include uppercase, lowercase, and min 6 chars");
+    setLoading(false);
+    return;
+  }
 
-      return;
+  try {
+    // 1️⃣ Create user in Firebase
+    const userCredential = await createuser(email, password);
+    const firebaseUser = userCredential.user;
+
+    // 2️⃣ Update Firebase profile
+    await updateProfile(firebaseUser, { displayName: name, photoURL: photo });
+
+    // 3️⃣ Save to MongoDB
+    const saveUser = {
+      uid: firebaseUser.uid,
+      name,
+      email,
+      photo,
+      phone,
+      role,
+      createdAt: new Date(),
+    };
+
+    const res = await fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(saveUser),
+    });
+
+    const data = await res.json();
+
+    if (data.insertedId || data.acknowledged) {
+      toast.success("Signup Successful");
+      setuser(firebaseUser);
+      navigate("/"); // ✅ only navigate after everything succeeds
+      form.reset();
+    } else {
+      toast.error("Signup failed. Please try again.");
     }
+  } catch (error) {
+    if (error.code === "auth/email-already-in-use") {
+      toast.error("This email is already registered. Please login.");
+    } else if (error.code === "auth/invalid-email") {
+      toast.error("Invalid email.");
+    } else {
+      toast.error("Signup failed. Please try again.");
+      console.error(error);
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
-    //user
-    createuser(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        toast.success("Signup Successfull");
-        navigate("/");
-        form.reset();
-        setuser(user);
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          toast.error("This email is already registered.Please login");
-        } else if (error.code === "auth/invalid-email") {
-          toast.error("Invalid email");
-        } else {
-          toast.error("Signup Failed.Please try again.");
-        }
-        setLoading(false);
-      });
-  };
+// Google Signup
+const handleGoogle = async () => {
+  setLoading(true);
+  try {
+    const result = await googleSignIn();
+    const firebaseUser = result.user;
 
-  const handleGoogle = () => {
-    googleSignIn()
-      .then(() => {
-        toast.success("Google Sign-In Successful");
-        navigate("/");
-      })
-      .catch(() => {
-        toast.error("Google Sign-In Failed.Try again");
-      });
-  };
+    // Save to MongoDB (role = student)
+    const saveUser = {
+      uid: firebaseUser.uid,
+      name: firebaseUser.displayName,
+      email: firebaseUser.email,
+      photo: firebaseUser.photoURL,
+      phone: firebaseUser.phoneNumber || "",
+      role: "student",
+      createdAt: new Date(),
+    };
+
+    const res = await fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(saveUser),
+    });
+
+    const data = await res.json();
+
+    if (data.insertedId || data.acknowledged) {
+      toast.success("Google Signup Successful");
+      setuser(firebaseUser);
+      navigate("/"); // ✅ only navigate after MongoDB success
+    } else {
+      toast.error("Signup failed. Please try again.");
+    }
+  } catch (error) {
+    toast.error("Google Sign-In Failed. Try again.");
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen ">
