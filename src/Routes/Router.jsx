@@ -5,6 +5,10 @@ import Alltuitions from "../Pages/Tuitions/Alltuitions";
 import AllTuitors from "../Pages/Tuitors/AllTuitors";
 import Contact from "../Pages/Contact";
 import About from "../Pages/About";
+import Auth from "../Layouts/Auth";
+import Login from "../Pages/Authentication/Login";
+import Register from "../Pages/Authentication/Register";
+import Forget from "../Pages/Forget";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +48,23 @@ export const router = createBrowserRouter([
         path: "/about",
         Component: About,
         loader: () => fetch(""),
+      },
+    ],
+  },{
+    path: "/auth",
+    Component: Auth,
+    children: [
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+      {
+        path: "/auth/register",
+        Component: Register,
+      },
+      {
+        path: "/auth/forget",
+        Component: Forget,
       },
     ],
   },

@@ -1,70 +1,96 @@
-import React, { use } from 'react'
-import { FaXTwitter } from "react-icons/fa6";
-
+// Components/Footer.jsx
+import { FaLinkedinIn, FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import logo from "../../src/assets/logo.png"
 
 const Footer = () => {
-
   return (
-    <div className=' -mb-10'>
-      <hr className='border border-base-200 ' />
+    <footer className="bg-gradient-to-r from-[#0b1324] to-[#0e1a33] text-gray-300 h-fit">
+      <div className="max-w-7xl mx-auto px-6 py-10 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-    <footer className="footer  sm:footer-horizontal bg-[#1c263c] shadow-sm  text-base-600 py-10 w-full px-[8%] mx-auto text-gray-100 ">
-  <nav>
-    <h6 className="footer-title">Services</h6>
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <img className="w-12 h-10 rounded-xl " src={logo} alt="" />
+              
+              <h2 className="text-xl font-semibold text-white">eTutionBd</h2>
+            </div>
+            <p className="text-sm leading-relaxed text-gray-400">
+              Connecting students with verified tutors. Find the perfect match
+              for your learning journey with our trusted platform.
+            </p>
+          </div>
 
-    <a className="link link-hover">Find Tutors</a>
-    <a className="link link-hover">Find Tuitions</a>
-    <a className="link link-hover">Making Post</a>
-    <a className="link link-hover">Advertisement</a>
-  </nav>
-  <nav>
-    <h6 className="footer-title">Company</h6>
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
-  </nav>
-  <nav>
-    <h6 className="footer-title">Social</h6>
-    <div className="grid grid-flow-col gap-4">
-      <a>
-      <FaXTwitter size={19} className='mt-1' />
-      </a>
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-        </svg>
-      </a>
-    </div>
-  </nav>
-  
-  
-</footer>
- 
-<div className="bootm flex justify-center items-center py-4 px-[7%] text-center bg-[#192235] text-gray-100">
-  
-       <p className='py-1' >Copyright © {new Date().getFullYear()} - All right reserved by eTuitionBD</p>
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Quick links</h3>
+            <ul className="space-y-2 text-sm">
+              {["Home", "Tuitions", "Tutors", "Dashboard", "Contact"].map(
+                (item) => (
+                  <li
+                    key={item}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    {item}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
 
-  </div>
-    </div>
-  )
-}
+          {/* Contact */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Contact Us</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center gap-3">
+                <MdEmail className="text-blue-500 text-lg" />
+                support@etutionbd.com
+              </li>
+              <li className="flex items-center gap-3">
+                <MdPhone className="text-blue-500 text-lg" />
+                +1234-5678-901
+              </li>
+              <li className="flex items-start gap-3">
+                <MdLocationOn className="text-blue-500 text-xl mt-1" />
+                <span>
+                
+                
+                  KUET City, Khulna-9203
+                </span>
+              </li>
+            </ul>
+          </div>
 
-export default Footer
+          {/* Social */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Follow Us</h3>
+            <div className="flex gap-3 mb-4">
+              {[FaLinkedinIn, FaFacebookF, FaInstagram, FaXTwitter].map(
+                (Icon, i) => (
+                  <div
+                    key={i}
+                    className="w-10 h-10 rounded-lg bg-[#1a2540] flex items-center justify-center
+                               hover:bg-blue-600 transition cursor-pointer"
+                  >
+                    <Icon className="text-white text-lg" />
+                  </div>
+                )
+              )}
+            </div>
+            <p className="text-sm text-gray-400">
+              Stay connected for updates and tips.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="border-t border-gray-700 mt-12 pt-6 text-center text-sm text-gray-400">
+          © {new Date().getFullYear()} eTutionBd. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

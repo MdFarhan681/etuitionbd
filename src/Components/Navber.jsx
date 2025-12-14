@@ -6,14 +6,15 @@ import toast from "react-hot-toast";
 import "animate.css";
 
 import Loader from "./Loader";
+import { AuthContext } from "./Provider/AuthProvider";
 
 const Navbar = () => {
   const [loading, setloading] = useState(false);
  
   const navigate = useNavigate();
 
-  //   const { user, logOut } = use(AuthContext);
-  //   const defaultPhoto = "https://i.ibb.co/7dLrnrMw/mann.jpg";
+    const { user, logOut } = use(AuthContext);
+    const defaultPhoto = "https://i.ibb.co/7dLrnrMw/mann.jpg";
 
  
 
@@ -128,7 +129,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          {/* 
+      
           {
           
           
@@ -154,16 +155,17 @@ const Navbar = () => {
 
               <button
                 onClick={handleLogOut}
-                className="btn px-2 shadow-xl shadow-green border border-green-700 py-2 font-semibold rounded-md text-black bg-green-500  mx-2 hover:text-white hover:border-white transition-all duration-300 "
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 px-4 mr-4"
               >
                 LogOut
               </button>
             </>
           ) : (
-            <Link to="/auth/login" className="btn px-4 shadow-xl shadow-green border border-green-700 py-3 font-semibold rounded-md text-black bg-green-500  hover:text-white hover:border-white transition-all duration-300 ">
+            <Link to="/auth/login"  className="w-20 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 px-4 mr-4 mx-auto text-center"
+              >
               Login
             </Link>
-          )} */}
+          )} 
         </div>
       </div></div>
      
