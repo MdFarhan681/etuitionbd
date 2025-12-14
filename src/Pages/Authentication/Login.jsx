@@ -15,22 +15,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { signIn, googleSignIn } = use(AuthContext);
-  const [role, setRole] = useState("student");
-
-  const roleBtn = (value, label) => (
-    <button
-      onClick={() => setRole(value)}
-      className={`flex-1 py-2 px-10 rounded-lg text-sm font-medium transition
-        ${
-          role === value
-            ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-3 rounded-xl shadow-md  mx-auto text-center"
-            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-        }`}
-    >
-      {label}
-    </button>
-  );
-
+  
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -86,12 +71,7 @@ const Login = () => {
 
           <div className="card-body w-full">
              
-          {/* Role Selector */}
-          <div className="flex gap-1 bg-gray-100 rounded-xl mb-5 w-full ">
-            {roleBtn("student", "I'm a Student")}
-            {roleBtn("tutor", "I'm a Tutor")}
-           
-          </div>
+        
             <form onSubmit={handleLogin} 
             
             className="fieldset">

@@ -17,16 +17,16 @@ const Navbar = () => {
     const defaultPhoto = "https://i.ibb.co/7dLrnrMw/mann.jpg";
 
  
-
+console.log(user)
 
   const handleLogOut = () => {
-    // logOut()
-    //   .then(() => {
-    //     toast.success("Logged Out Successfully");
-    //   })
-    //   .catch(() => {
-    //    toast.success("Do not LogOut.Try again");
-    //   });
+    logOut()
+      .then(() => {
+        toast.success("Logged Out Successfully");
+      })
+      .catch(() => {
+       toast.success("Do not LogOut.Try again");
+      });
   };
 
   const link = (
@@ -155,7 +155,7 @@ const Navbar = () => {
 
               <button
                 onClick={handleLogOut}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 px-4 mr-4"
+                className="w-20 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 px-4 mr-4"
               >
                 LogOut
               </button>

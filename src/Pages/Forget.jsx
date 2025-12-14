@@ -56,7 +56,7 @@ const Forget = () => {
   return (
     <div className="flex justify-center items-center min-h-screen ">
       <div className="card bg-base-100 w-[92%] md:w-96 shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-secondary mb-4">
+        <h2 className="text-2xl font-bold text-center mb-4">
           Reset Your Password
         </h2>
         <form onSubmit={handleReset} className="space-y-4">
@@ -76,7 +76,7 @@ const Forget = () => {
 
           <button
             type="submit"
-            className="btn bg-primary w-full mt-2"
+            className="btn w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 px-4 mr-4 mx-auto text-center"
           >
             Reset Password
           </button>
