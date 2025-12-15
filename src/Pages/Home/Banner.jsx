@@ -1,4 +1,5 @@
 import React from 'react';
+import Status from './Status';
 
 const Banner = () => {
   return (
@@ -21,11 +22,13 @@ const Banner = () => {
               <br className="hidden sm:block" />
               for Class 5–8, O-Level & A-Level students
             </p>
+   <Status></Status>
 
          
 
           </div>
 
+       
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
             <div className="relative group">
               <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-10 md:p-12 max-w-xs w-full text-center 
