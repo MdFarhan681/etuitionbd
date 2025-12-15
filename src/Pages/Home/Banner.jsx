@@ -22,40 +22,8 @@ const Banner = () => {
               for Class 5–8, O-Level & A-Level students
             </p>
 
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-5 sm:p-6 border border-gray-100">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <select defaultValue="Bangla" className="select select-bordered select-info w-full text-sm">
-                  <option disabled>Select Version</option>
-                  <option>Bangla</option>
-                  <option>English</option>
-                </select>
+         
 
-                <select defaultValue="" className="select select-bordered select-info w-full text-sm">
-                  <option disabled>Class</option>
-                  <option>Class 8</option>
-                  <option>Class 9</option>
-                  <option>Class 10</option>
-                  <option>O-Level</option>
-                  <option>A-Level</option>
-                </select>
-              </div>
-
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3 items-center">
-                <select defaultValue="" className="select select-bordered select-info w-full text-sm col-span-2 sm:col-span-2">
-                  <option disabled>Subject</option>
-                  <option>Math</option>
-                  <option>Physics</option>
-                  <option>Chemistry</option>
-                  <option>Biology</option>
-                  <option>English</option>
-                  <option>Science</option>
-                </select>
-
-                <button className="btn btn-info text-white font-semibold text-sm hover:scale-105 transition-transform">
-                  Search
-                </button>
-              </div>
-            </div>
           </div>
 
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">

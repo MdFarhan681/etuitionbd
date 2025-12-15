@@ -30,6 +30,7 @@ const Login = () => {
         navigate(`${location.state ? location.state : "/"}`);
 
         toast.success("Successfull LogIn");
+
       })
       .catch((error) => {
         if (error.code === "auth/wrong-password") {

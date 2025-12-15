@@ -81,8 +81,9 @@ const handleSub = async (e) => {
     if (data.insertedId || data.acknowledged) {
       toast.success("Signup Successful");
       setuser(firebaseUser);
-      navigate("/"); 
+   
       form.reset();
+            window.location.href = "/"; 
     } else {
       toast.error("Signup failed. Please try again.");
     }
@@ -105,9 +106,9 @@ const handleGoogle = async () => {
   setLoading(true);
 
   try {
-    const firebaseUser = await googleSignIn(); // 👈 already user
+    const firebaseUser = await googleSignIn(); 
 
-    console.log("Firebase User:", firebaseUser);
+    // console.log("Firebase User:", firebaseUser);
 
     if (!firebaseUser) {
       throw new Error("Firebase user not found");

@@ -10,6 +10,8 @@ import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import Forget from "../Pages/Forget";
 import Dashboard from "../Layouts/Dashboard";
+import Student from "../Pages/DashBoard/Student/Student";
+import Tutor from "../Pages/DashBoard/Tuitors/Tutor";
 
 export const router = createBrowserRouter([
   {
@@ -74,17 +76,14 @@ export const router = createBrowserRouter([
     Component: Dashboard,
     children: [
       {
-        path: "/dashboard/login",
-        Component: Login,
+        path: "/dashboard/student",
+        Component:Student ,
       },
       {
-        path: "/dashboard/register",
-        Component: Register,
+        path: "/dashboard/tutor",
+        Component: Tutor,
       },
-      {
-        path: "/auth/forget",
-        Component: Forget,
-      },
+     
     ],
   },
 ]);
