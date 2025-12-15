@@ -10,6 +10,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setuser] = useState(null);
+  const [dbUser, setDbUser] = useState(null); 
   const [loading, setloading] = useState(true);
    const [lastEmail, setLastEmail] = useState("");
 
@@ -43,10 +44,27 @@ const AuthProvider = ({ children }) => {
 
 
   useEffect(()=>{
-    const unsubscribe=onAuthStateChanged(auth,(currentUser)=>{
+    const unsubscribe=onAuthStateChanged(auth,async(currentUser)=>{
         setuser(currentUser)
+     
+ 
+
+         if (currentUser) {
+        const res = await fetch(
+          `http://localhost:3000/users/${currentUser.uid}`
+        );
+        const data = await res.json();
+        setDbUser(data); // contains role
+   
+
+      } else {
+        setDbUser(null);
+      }
         setloading(false)
     })
+
+
+
     return ()=>{
         unsubscribe()
     }
@@ -54,11 +72,11 @@ const AuthProvider = ({ children }) => {
   },[])
 
 
-
+     console.log(dbUser)
 
   const authData = {
     user,
-    setuser,createuser,loading,setloading,logOut,signIn,googleSignIn,
+    setuser,createuser,loading,setloading,logOut,signIn,googleSignIn,dbUser
     
   };
   return <AuthContext value={authData}>{children}</AuthContext>;

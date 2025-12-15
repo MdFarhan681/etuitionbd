@@ -9,6 +9,7 @@ import Auth from "../Layouts/Auth";
 import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import Forget from "../Pages/Forget";
+import Dashboard from "../Layouts/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
         Component: Alltuitions,
         loader: () =>
             fetch("http://localhost:3000/home/tuitions"),
+        
       },
       {
         path: "/allTuitors",
@@ -42,12 +44,12 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         Component: Contact,
-        loader: () => fetch(""),
+     
       },
       {
         path: "/about",
         Component: About,
-        loader: () => fetch(""),
+     
       },
     ],
   },{
@@ -60,6 +62,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "/auth/register",
+        Component: Register,
+      },
+      {
+        path: "/auth/forget",
+        Component: Forget,
+      },
+    ],
+  },{
+    path: "/dashboard",
+    Component: Dashboard,
+    children: [
+      {
+        path: "/dashboard/login",
+        Component: Login,
+      },
+      {
+        path: "/dashboard/register",
         Component: Register,
       },
       {

@@ -7,6 +7,7 @@ import { BsEyeglasses } from "react-icons/bs";
 import { AuthContext } from "../../Components/Provider/AuthProvider";
 import image from "../../assets/image.png";
 import { updateProfile } from "firebase/auth";
+import axios from "axios";
 
 const Register = () => {
   const location = useLocation();
@@ -51,14 +52,14 @@ const handleSub = async (e) => {
   }
 
   try {
-    // 1️⃣ Create user in Firebase
+
     const userCredential = await createuser(email, password);
     const firebaseUser = userCredential.user;
 
-    // 2️⃣ Update Firebase profile
+    
     await updateProfile(firebaseUser, { displayName: name, photoURL: photo });
 
-    // 3️⃣ Save to MongoDB
+  
     const saveUser = {
       uid: firebaseUser.uid,
       name,
@@ -80,7 +81,7 @@ const handleSub = async (e) => {
     if (data.insertedId || data.acknowledged) {
       toast.success("Signup Successful");
       setuser(firebaseUser);
-      navigate("/"); // ✅ only navigate after everything succeeds
+      navigate("/"); 
       form.reset();
     } else {
       toast.error("Signup failed. Please try again.");
@@ -102,11 +103,16 @@ const handleSub = async (e) => {
 // Google Signup
 const handleGoogle = async () => {
   setLoading(true);
-  try {
-    const result = await googleSignIn();
-    const firebaseUser = result.user;
 
-    // Save to MongoDB (role = student)
+  try {
+    const firebaseUser = await googleSignIn(); // 👈 already user
+
+    console.log("Firebase User:", firebaseUser);
+
+    if (!firebaseUser) {
+      throw new Error("Firebase user not found");
+    }
+
     const saveUser = {
       uid: firebaseUser.uid,
       name: firebaseUser.displayName,
@@ -117,28 +123,17 @@ const handleGoogle = async () => {
       createdAt: new Date(),
     };
 
-    const res = await fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(saveUser),
-    });
+    await axios.post("http://localhost:3000/users", saveUser);
 
-    const data = await res.json();
-
-    if (data.insertedId || data.acknowledged) {
-      toast.success("Google Signup Successful");
-      setuser(firebaseUser);
-      navigate("/"); // ✅ only navigate after MongoDB success
-    } else {
-      toast.error("Signup failed. Please try again.");
-    }
+    toast.success("Google signup successful!");
+    navigate("/");
   } catch (error) {
-    toast.error("Google Sign-In Failed. Try again.");
-    console.error(error);
+    console.error("Google Sign-In Error:", error);
   } finally {
     setLoading(false);
   }
 };
+
 
 
   return (

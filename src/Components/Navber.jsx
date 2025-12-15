@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import logo from "../../src/assets/logo.png";
 import { handleNav } from "../NavigateLoader";
@@ -7,17 +7,17 @@ import "animate.css";
 
 import Loader from "./Loader";
 import { AuthContext } from "./Provider/AuthProvider";
+import DashboardDropdown from "./DashboardDropdown";
 
 const Navbar = () => {
   const [loading, setloading] = useState(false);
  
   const navigate = useNavigate();
 
-    const { user, logOut } = use(AuthContext);
+    const { user, logOut,dbUser  } = useContext(AuthContext);
     const defaultPhoto = "https://i.ibb.co/7dLrnrMw/mann.jpg";
 
- 
-console.log(user)
+console.log(dbUser)
 
   const handleLogOut = () => {
     logOut()
@@ -70,8 +70,16 @@ console.log(user)
       >
   Contact
       </NavLink>
-
-    
+ 
+    {dbUser?.role && (
+  <NavLink
+    onClick={() => handleNav(navigate, `/dashboard/${dbUser.role}`, setloading)}
+    className="px-3 font-semibold"
+    to={`/dashboard/${dbUser.role}`}
+  >
+    Dashboard 
+  </NavLink>
+)}
     </>
   );
 
@@ -135,6 +143,7 @@ console.log(user)
           
           user ? (
             <>
+           
               <button
     
                 className="tooltip tooltip-bottom tooltip-primary"
@@ -168,6 +177,9 @@ console.log(user)
           )} 
 
         </div>
+
+
+        
       </div>
 
       </div>
