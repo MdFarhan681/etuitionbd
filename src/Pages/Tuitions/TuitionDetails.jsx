@@ -1,149 +1,145 @@
-import React, { use, useContext, useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
-import { useLoaderData, useParams, useSearchParams } from "react-router";
-import { formatDistanceToNow } from "date-fns";
-import { AuthContext } from "../Provider/AuthProvider";
+import { useParams } from "react-router";
+import { AuthContext } from "../../Components/Provider/AuthProvider";
 import Loader from "../../Components/Loader";
+import { formatDistanceToNow } from "date-fns";
+import { useContext, useEffect, useState } from "react";
 
-const ProductDetails = () => {
+const TuitionDetails = () => {
   const { user } = useContext(AuthContext);
-
   const { id } = useParams();
-  const [model, setmodel] = useState({});
-  const [loading, setloading] = useState(true);
+  const [model, setModel] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://assignmenttenserver-pi.vercel.app/products/${id}`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
-      },
-    })
+    fetch(`http://localhost:3000/home/tuitions/${id}`)
       .then((res) => res.json())
-      .then((data) => {
-        setmodel(data.result);
-        setloading(false);
-      });
-  }, []);
+      .then((data) => setModel(data.result))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  const handleBook = async () => {
-    fetch("https://assignmenttenserver-pi.vercel.app/booked", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ ...model, customerEmail: user.email }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          toast.success("Successfully Booked!");
-        } else {
-          toast.error("Booking Failed!");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  if (loading) return <Loader />;
 
   const {
-    productName,
-    category,
-    pricePerKg,
+    name,
+    school_college,
     location,
-    availability,
     description,
-    coverImage,
-    userEmail,
-    createdAt,
+    photo,
+    email,
+    study_time_per_day,
+    study_days_per_month,
+    weak_subjects,
+    budget,
+    class: studentClass,
+    dateCreated
   } = model;
 
-  if (loading) {
-    return <Loader></Loader>;
-  }
+  const postedTime = dateCreated
+    ? formatDistanceToNow(new Date(dateCreated), { addSuffix: true })
+    : "Unknown";
 
   return (
-    <div className="details w-full py-10 md:px-15 px-[7%]">
-      <div className="pb-3 flex flex-col md:flex-row ">
-        <img className="w-65 rounded" src={coverImage} alt="" />
+    <div className="min-h-screen bg-gradient-to-br from-cyan-100 via-teal-50 to-indigo-100 relative overflow-hidden">
+      {/* Animated Background Gradient Orbs for Depth */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 -right-40 w-80 h-80 bg-teal-400/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+      </div>
 
-        <div className="topCont pl-3 w-full ">
-          <div className="contHead  ">
-            <h2 className="font-bold text-3xl text-transparent font-semibold bg-gradient-to-r from-[#20a34a] to-[#69ed93] bg-clip-text ">{productName}</h2>
-
-            <p className="text-secondary pt-1 ">
-              Category:{" "}
-              <span className="text-transparent font-semibold bg-gradient-to-r from-[#20a34a]  to-[#69ed93] bg-clip-text ">
-                {category}
-              </span>
-            </p>
-            <p className="text-secondary pt-1 ">
-              Email:{" "}
-              <span className="text-transparent font-semibold bg-gradient-to-r from-[#20a34a]  to-[#69ed93] bg-clip-text ">
-                {userEmail}
-              </span>
-            </p>
-
-            <p className="text-secondary pt-1 ">
-              Location:{" "}
-              <span className="text-transparent font-semibold bg-gradient-to-r from-[#20a34a]  to-[#69ed93] bg-clip-text ">
-                {location}
-              </span>
-            </p>
-
-            <hr className="text-gray-300 w-full " />
-          </div>
-
-          <div className="topicons flex justify-between w-full md:w-100 pt-3 ">
-            <div className="download flex flex-col">
-              <p className="text-gray-400 text-sm py-1">Price Per kg</p>
-              <p className="text-[#20a34a] text-[1.25 rem] md:text-xl font-semibold">
-                {pricePerKg}
-              </p>
-            </div>
-            <div className="avgRating flex flex-col justify-center items-center ">
-              <p className="text-gray-400 text-sm py-1">Availablity</p>
-              <p className="text-[#20a34a] text-[1.25 rem] md:text-xl font-semibold">
-                {availability}
+      <div className="relative z-10 py-12 px-6">
+        {/* Main Glass Card */}
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-3xl shadow-2xl overflow-hidden backdrop-blur-2xl bg-white/10 border border-white/20 p-10 animate-fade-in">
+            {/* Header - Profile */}
+            <div className="flex flex-col items-center mb-12">
+              <div className="relative w-40 h-40 rounded-full overflow-hidden border-8 border-white/50 shadow-2xl ring-8 ring-cyan-300/30 transition-all hover:ring-cyan-400/60 hover:scale-105">
+              
+                <img
+                  src={photo || "https://via.placeholder.com/150"}
+                  alt={name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h1 className="text-4xl font-extrabold mt-6 bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+                {name}
+              </h1>
+              <p className="text-xl font-semibold text-cyan-700 mt-2">{studentClass}</p>
+              <p className="text-sm text-gray-300 mt-1 bg-white/20 px-4 py-1 rounded-full">
+                Posted {postedTime}
               </p>
             </div>
 
-            <div className="avgRating flex flex-col ">
-              <p className="text-gray-400 text-sm py-1">Stock Date</p>
-              <p className="text-[#20a34a] text-[1.25 rem] md:text-xl font-semibold">
-                {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
-              </p>
+            {/* Info Grid - Two Floating Glass Cards */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* Student Info Card */}
+              <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="mr-3 text-3xl">👤</span> Student Information
+                </h2>
+                <div className="space-y-4 text-lg">
+                  <p><span className="font-semibold text-gray-800">School/College:</span> {school_college}</p>
+                  <p><span className="font-semibold text-gray-800">Email:</span> {email}</p>
+                  <p><span className="font-semibold text-gray-800">Location:</span> {location}</p>
+                  <p><span className="font-semibold text-gray-800">Weak Subjects:</span> {weak_subjects}</p>
+                </div>
+              </div>
+
+              {/* Tuition Details Card */}
+              <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="mr-3 text-3xl">📚</span> Tuition Requirements
+                </h2>
+                <div className="space-y-4 text-lg">
+                  <p><span className="font-semibold text-gray-800">Budget:</span> ৳{budget}</p>
+                  <p><span className="font-semibold text-gray-800">Study Time/Day:</span> {study_time_per_day}</p>
+                  <p><span className="font-semibold text-gray-800">Days/Month:</span> {study_days_per_month}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Description Card */}
+            <div className="p-8 rounded-2xl bg-white/25 backdrop-blur-xl border border-white/30 shadow-xl">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span className="mr-3 text-3xl">📝</span> Description
+              </h2>
+              <p className="text-gray-700 leading-relaxed text-base">{description}</p>
+            </div>
+
+            {/* Apply Button */}
+            <div className="mt-12 flex justify-center">
+              <button
+                disabled={!user}
+                className="px-12 py-4 rounded-2xl font-bold text-white text-lg
+                           bg-gradient-to-r from-cyan-500 to-teal-600
+                           hover:from-cyan-600 hover:to-teal-700
+                           shadow-2xl hover:shadow-cyan-500/50
+                           transform hover:scale-105 active:scale-95
+                           transition-all duration-300 animate-pulse-subtle
+                           disabled:bg-gray-500 disabled:cursor-not-allowed disabled:animate-none"
+              >
+                {user ? "Apply as Tutor" : "Login to Apply"}
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <hr className="text-gray-300 w-full " />
-
-      <div className="des w-full h-fit my-10">
-        <h1 className="font-bold text-xl  py-3">Description</h1>
-        <p className="text-[#627382] text-justify py-2">
-          {description}Organic food is cultivated without synthetic chemicals,
-          pesticides, or genetically modified organisms, ensuring natural
-          growth. Rich in nutrients and free from harmful additives, it supports
-          overall health and well-being. By choosing organic, consumers promote
-          sustainable farming, protect the environment, and enjoy fresher,
-          tastier produce. Organic products offer a safer, healthier, and more
-          eco-friendly lifestyle for everyone.
-        </p>
-      </div>
-
-      <div className="bookedBtn flex justify-center item-center ">
-        <button
-          onClick={handleBook}
-          className="btn px-9 shadow-xl shadow-green border border-green-700 py-3 font-semibold rounded-md text-black bg-green-500  hover:text-white hover:border-white transition-all duration-300 "
-        >
-          {" "}
-          Book Now
-        </button>
-      </div>
+      {/* Optional: Custom CSS for subtle pulse if not using plugin */}
+      <style jsx>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 1s ease-out; }
+        @keyframes pulse-subtle {
+          0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+          50% { box-shadow: 0 0 30px rgba(13, 202, 190, 0.6); }
+        }
+        .animate-pulse-subtle { animation: pulse-subtle 4s infinite; }
+      `}</style>
     </div>
   );
 };
 
-export default ProductDetails;
+export default TuitionDetails;

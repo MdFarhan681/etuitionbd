@@ -17,7 +17,7 @@ const Navbar = () => {
     const { user, logOut,dbUser  } = useContext(AuthContext);
     const defaultPhoto = "https://i.ibb.co/7dLrnrMw/mann.jpg";
 
-console.log(dbUser)
+
 
   const handleLogOut = () => {
     logOut()

@@ -7,8 +7,8 @@ const Dashboard = () => {
    <div className=' min-h-screen flex flex-col' >
      <div className="main grow ">
         <Navbar></Navbar>
-        <main className='mx-auto '>
-            <img src={image} alt="" />
+        <main className='mx-auto'>
+        
             <Outlet></Outlet>
         </main>
       </div>

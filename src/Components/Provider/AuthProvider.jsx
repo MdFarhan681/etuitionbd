@@ -72,7 +72,6 @@ const AuthProvider = ({ children }) => {
   },[])
 
 
-     console.log(dbUser)
 
   const authData = {
     user,
