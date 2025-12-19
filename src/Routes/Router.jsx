@@ -41,13 +41,13 @@ export const router = createBrowserRouter([
         path: "/allTuitions",
         Component: Alltuitions,
         loader: () =>
-            fetch("http://localhost:3000/home/tuitions"),
+            fetch("http://localhost:3000/tuitions"),
         
       },
       {
         path: "/allTuitors",
         Component: AllTuitors,
-        loader: () =>   fetch("http://localhost:3000/home/tuitors"),
+        loader: () =>   fetch("http://localhost:3000/tuitors"),
       },
       {
         path: "/contact",

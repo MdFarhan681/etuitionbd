@@ -11,10 +11,10 @@ import HowWork from "./HowWork/HowWork";
 import WhyChoose from "./WhyChoose/WhyChoose";
 
 const Home = () => {
-  const data = useLoaderData();
+ const { tuitions, tuitors } = useLoaderData();
 
-  const latestTuitions = getLatest(data.tuitions, "dateCreated", 9);
-  const latestTuitors = getLatest(data.tuitors, "date_created", 9);
+  // const latestTuitions = getLatest(data.tuitions, "dateCreated", 9);
+  // const latestTuitors = getLatest(data.tuitors, "date_created", 9);
 
 
   return (
@@ -32,7 +32,7 @@ const Home = () => {
 
           <div className="w-full px-4 sm:px-6 lg:px-[7%] py-8">
     <MySwiper>
-      {latestTuitors.map((tuitor) => (
+      {tuitors.map((tuitor) => (
                 <SwiperSlide key={tuitor._id}>
                   <TuitorCard key={tuitor._id} tuitor={tuitor}></TuitorCard>
                 </SwiperSlide>
@@ -50,7 +50,7 @@ const Home = () => {
 
           <div className="w-full px-4 sm:px-6 lg:px-[7%] py-8">
             <MySwiper>
-              {latestTuitions.map((post) => (
+              {tuitions.map((post) => (
                 <SwiperSlide key={post._id}>
                   <TuitionCard key={post._id} post={post}></TuitionCard>
                 </SwiperSlide>

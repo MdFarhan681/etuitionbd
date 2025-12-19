@@ -42,34 +42,38 @@ const AuthProvider = ({ children }) => {
    })
   }
 
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    setuser(currentUser);
 
-  useEffect(()=>{
-    const unsubscribe=onAuthStateChanged(auth,async(currentUser)=>{
-        setuser(currentUser)
-     
- 
+  
+    if (!currentUser?.uid) {
+      setDbUser(null);
+      setloading(false);
+      return;
+    }
 
-         if (currentUser) {
-        const res = await fetch(
-          `http://localhost:3000/users/${currentUser.uid}`
-        );
+    try {
+      const res = await fetch(
+        `http://localhost:3000/users/${currentUser.uid}`
+      );
+
+      if (res.ok) {
         const data = await res.json();
-        setDbUser(data); // contains role
-   
-
+        setDbUser(data);
       } else {
         setDbUser(null);
       }
-        setloading(false)
-    })
-
-
-
-    return ()=>{
-        unsubscribe()
+    } catch (error) {
+      console.error("DB user fetch failed:", error);
+      setDbUser(null);
+    } finally {
+      setloading(false);
     }
+  });
 
-  },[])
+  return () => unsubscribe();
+}, []);
 
 
 

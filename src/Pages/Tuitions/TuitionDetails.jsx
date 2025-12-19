@@ -31,11 +31,11 @@ const TuitionDetails = () => {
     weak_subjects,
     budget,
     class: studentClass,
-    dateCreated
+    date_created
   } = model;
 
-  const postedTime = dateCreated
-    ? formatDistanceToNow(new Date(dateCreated), { addSuffix: true })
+  const postedTime = date_created
+    ? formatDistanceToNow(new Date(date_created), { addSuffix: true })
     : "Unknown";
 
   return (

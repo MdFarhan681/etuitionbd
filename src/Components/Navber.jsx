@@ -7,7 +7,7 @@ import "animate.css";
 
 import Loader from "./Loader";
 import { AuthContext } from "./Provider/AuthProvider";
-import DashboardDropdown from "./DashboardDropdown";
+
 
 const Navbar = () => {
   const [loading, setloading] = useState(false);
@@ -17,7 +17,7 @@ const Navbar = () => {
     const { user, logOut,dbUser  } = useContext(AuthContext);
     const defaultPhoto = "https://i.ibb.co/7dLrnrMw/mann.jpg";
 
-
+console.log(dbUser)
 
   const handleLogOut = () => {
     logOut()
@@ -71,16 +71,15 @@ const Navbar = () => {
       >
   Contact
       </NavLink>
- 
-    {dbUser?.role && (
+ {!loading && dbUser?.role && (
   <NavLink
-    onClick={() => handleNav(navigate, `/dashboard/${dbUser.role}`, setloading)}
-    className="px-3 font-semibold"
     to={`/dashboard/${dbUser.role}`}
+    className="px-3 font-semibold"
   >
-    Dashboard 
+    Dashboard
   </NavLink>
 )}
+
 
     </>
   

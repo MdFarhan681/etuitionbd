@@ -24,7 +24,7 @@ const Student = () => {
               w-full           
               md:w-[30%] 
               mx-auto    
-              
+             
             "
           >
             <Sidebar />
