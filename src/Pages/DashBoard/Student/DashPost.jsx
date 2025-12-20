@@ -26,7 +26,7 @@ const handleSub = async (e) => {
     name: form.name.value,
     classes: form.classes.value,
     email: user.email,
-    photo: form.photo.value || "", // optional field
+    photo: form.photo.value || "", 
     school_college: form.school.value,
     location: form.location.value,
     study_time_per_day: form.study_time_per_day.value,
@@ -40,20 +40,19 @@ const handleSub = async (e) => {
   try {
     const res = await fetch("http://localhost:3000/tuition", {
       method: "POST",
-      headers: { "Content-Type": "application/json" }, // Fixed header name
+      headers: { "Content-Type": "application/json" }, 
       body: JSON.stringify(saveTuition),
     });
 
-    // Always parse JSON, even if error
+   
     const data = await res.json();
-    console.log("Response from server:", data); // ← Add this for debugging
+ 
 
-    // More reliable check for success
     if (res.ok && (data.insertedId || data.acknowledged)) {
       toast.success("Tuition post created successfully!");
       form.reset();
     } else {
-      // Server returned error status or no insertedId
+     
       toast.error(data.message || "Failed to create post");
       console.error("Server error response:", data);
     }
@@ -61,7 +60,7 @@ const handleSub = async (e) => {
     console.error("Fetch error:", error);
     toast.error("Something went wrong. Please try again.");
   } finally {
-    setLoading(false); // This will ALWAYS run
+    setLoading(false); 
   }
 };
 return(

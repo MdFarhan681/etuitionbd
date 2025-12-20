@@ -1,9 +1,16 @@
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { handleNav } from "../../../NavigateLoader";
+import { NavLink } from "react-router";
+import { AuthContext } from "../../../Components/Provider/AuthProvider";
+import { useContext } from "react";
+import Swal from "sweetalert2";
 
-const StudDashCard = ({ product }) => {
-  console.log(product);
+const StudDashCard = ({ product,onDelete }) => {
+
+   const { user } = useContext(AuthContext);
+ 
   const {
-   name,
+    name,
     classes,
     email,
     photo,
@@ -15,11 +22,45 @@ const StudDashCard = ({ product }) => {
     budget,
     description,
     dateCreated,
+    _id,
   } = product;
+const handleDelete = () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (!result.isConfirmed) return;
 
-  const saveTuition = {
-    
-  };
+    fetch(`http://localhost:3000/tuition/${_id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${user?.accessToken}`,
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.deletedCount > 0) {
+          Swal.fire("Deleted!", "Post has been deleted.", "success");
+          
+      
+          onDelete(_id);
+        } else {
+          Swal.fire("Error!", "Delete failed.", "error");
+        }
+      })
+      .catch(() => {
+        Swal.fire("Error!", "Something went wrong.", "error");
+      });
+  });
+};
+
+
+
   return (
     <div
       className="bg-[#fbfbfc] rounded-2xl border border-gray-100 
@@ -29,7 +70,9 @@ const StudDashCard = ({ product }) => {
       {/* Header */}
       <div className="flex justify-between items-start">
         <div className="flex items-center gap-3">
-          <h3 className="text-lg font-semibold text-gray-900">{weak_subjects}</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            {weak_subjects}
+          </h3>
 
           {/* Status Badge */}
           <span
@@ -42,13 +85,18 @@ const StudDashCard = ({ product }) => {
 
         {/* Actions */}
         <div className="flex gap-3 text-gray-500">
-          <button className="hover:text-blue-600 transition">
-            <FaEye />
-          </button>
-          <button className="hover:text-amber-500 transition">
+        
+
+          <NavLink product={product}
+           
+            to={`/dashboard/student/update/${_id}`}
+            className=" hover:text-blue-500 transition "
+          >
+            {" "}
             <FaEdit />
-          </button>
-          <button className="hover:text-red-500 transition">
+          </NavLink>
+
+          <button onClick={handleDelete} className="hover:text-red-500 transition">
             <FaTrash />
           </button>
         </div>
@@ -60,20 +108,21 @@ const StudDashCard = ({ product }) => {
           <span className="font-medium text-gray-900">Class:</span> {classes}
         </p>
         <p className=" text-wrap">
-          <span className="font-medium text-gray-900">Location:</span> {location}
+          <span className="font-medium text-gray-900">Location:</span>{" "}
+          {location}
         </p>
         <p>
-          <span className="font-medium text-gray-900">Budget: BDT</span>{budget} 
+          <span className="font-medium text-gray-900">Budget: BDT</span>
+          {budget}
         </p>
         <p>
-    <span className="font-medium text-gray-900">Time/Days:</span> {study_time_per_day}hr : {study_days_per_month}days
+          <span className="font-medium text-gray-900">Time/Days:</span>{" "}
+          {study_time_per_day}hr : {study_days_per_month}days
         </p>
       </div>
 
       {/* Description */}
-      <p className="text-sm text-gray-600 leading-relaxed">
-       {description}
-      </p>
+      <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
     </div>
   );
 };

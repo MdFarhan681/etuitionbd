@@ -18,6 +18,7 @@ import DashApply from "../Pages/DashBoard/Student/DashApply";
 import DashPost from "../Pages/DashBoard/Student/DashPost";
 import DashPayment from "../Pages/DashBoard/Student/DashPayment";
 import DashStudSetting from "../Pages/DashBoard/Student/DashStudSetting";
+import DashStudUpdate from "../Pages/DashBoard/Student/DashStudUpdate";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
     {
       path: "post",
       Component: DashPost,
+    },
+    {
+       path: "/dashboard/student/update/:id",
+      Component: DashStudUpdate,
     },
     {
       path: "appliedTutor",
