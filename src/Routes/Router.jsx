@@ -19,6 +19,7 @@ import DashPost from "../Pages/DashBoard/Student/DashPost";
 import DashPayment from "../Pages/DashBoard/Student/DashPayment";
 import DashStudSetting from "../Pages/DashBoard/Student/DashStudSetting";
 import DashStudUpdate from "../Pages/DashBoard/Student/DashStudUpdate";
+import PrivateRouth from "../Components/PrivateRouth";
 
 export const router = createBrowserRouter([
   {
@@ -40,14 +41,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/allTuitions",
-        Component: Alltuitions,
+        
+
+        element: <PrivateRouth>        <Alltuitions></Alltuitions></PrivateRouth>,
+        
+
         loader: () =>
             fetch("http://localhost:3000/tuitions"),
         
       },
       {
         path: "/allTuitors",
-        Component: AllTuitors,
+       element: <PrivateRouth>        <AllTuitors></AllTuitors></PrivateRouth>,
+        
         loader: () =>   fetch("http://localhost:3000/tuitors"),
       },
       {
@@ -62,11 +68,8 @@ export const router = createBrowserRouter([
       },,
       {
         path: "/tuitionDetails/:id",
-        element: (
-        
-            <TuitionDetails></TuitionDetails>
+        element: <PrivateRouth>        <TuitionDetails></TuitionDetails></PrivateRouth>,
        
-        ),
       },
     ],
   },{
@@ -88,7 +91,7 @@ export const router = createBrowserRouter([
     ],
   },{
     path: "/dashboard",
-    Component: Dashboard,
+     element: <PrivateRouth>        <Dashboard></Dashboard></PrivateRouth>,
     children: [
       {
   path: "/dashboard/student",

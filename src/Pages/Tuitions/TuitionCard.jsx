@@ -16,11 +16,11 @@ const TuitionCard = ({ post }) => {
                            h-[360px] flex flex-col
                            bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-100"
       >
-        {/* Same soft overlay */}
+
         <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px]"></div>
 
         <div className="relative z-10 flex flex-col h-full">
-          {/* Student / Guardian Photo - EXACT same as Tutor Card */}
+
           <div className="pt-6 px-4 flex justify-center">
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-4 ring-cyan-200/50">
               <img
@@ -35,20 +35,18 @@ const TuitionCard = ({ post }) => {
             </div>
           </div>
 
-          {/* Content - Identical to Tutor Card */}
+  
           <div className="px-4 pt-5 flex flex-col flex-grow text-center">
             <h3 className="text-lg font-bold text-gray-800 line-clamp-1">
               {post.name || "Anonymous"}
             </h3>
 
-            {/* Description - Max 2 lines */}
             <p
-              className="text-xs text-gray-600 mt-3 line-clamp-2 leading-snug"
+              className="text-xs text-gray-600 mt-3 line-clamp-1 leading-snug"
               title={post.description}
             >
               {post.description || "Looking for a tutor..."}
             </p>
-
             {/* Location & Budget */}
             <div className="mt-5 text-xs text-gray-700 space-y-1">
               <p className="flex items-center justify-center gap-2">
@@ -72,15 +70,15 @@ const TuitionCard = ({ post }) => {
             </div>
 
             {/* Same button */}
-            <div className="mt-auto py-3">
+            <div className="mt-auto  py-3 w-full">
               <NavLink onClick={() => handleNav(Navigate, `/tuitionDetails/${_id}`)} to={`/tuitionDetails/${_id}`} 
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 
+                className="w-full block bg-gradient-to-r from-cyan-500 to-blue-600 
                                         hover:from-cyan-600 hover:to-blue-700 
                                         text-white font-semibold text-sm py-3 rounded-xl 
                                         shadow-md hover:shadow-lg transition-all duration-200 
                                         active:scale-95"
               >
-                Apply as Tutor
+              View Details
               </NavLink>
             </div>
           </div>
