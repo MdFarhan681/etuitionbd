@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 
-
 import toast from "react-hot-toast";
-import AuthProvider, { AuthContext } from "../../../Components/Provider/AuthProvider";
+import AuthProvider, {
+  AuthContext,
+} from "../../../Components/Provider/AuthProvider";
 import Loader from "../../../Components/Loader";
-
-
-
 
 const DashPost = () => {
   const [loading, setLoading] = useState(false);
@@ -16,55 +14,54 @@ const DashPost = () => {
     return <Loader />;
   }
 
-const handleSub = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleSub = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const form = e.target;
+    const form = e.target;
 
-  const saveTuition = {
-    name: form.name.value,
-    classes: form.classes.value,
-    email: user.email,
-    photo: form.photo.value || "", 
-    school_college: form.school.value,
-    location: form.location.value,
-    study_time_per_day: form.study_time_per_day.value,
-    study_days_per_month: form.study_days_per_month.value,
-    weak_subjects: form.weak_subjects.value,
-    budget: form.budget.value,
-    description: form.description.value,
-    dateCreated: new Date(),
-  };
+    const saveTuition = {
+      name: form.name.value,
+      classes: form.classes.value,
+      email: user.email,
+      photo: form.photo.value || "",
+      school_college: form.school.value,
+      location: form.location.value,
+      study_time_per_day: form.study_time_per_day.value,
+      study_days_per_month: form.study_days_per_month.value,
+      weak_subjects: form.weak_subjects.value,
+      budget: form.budget.value,
+      description: form.description.value,
+      dateCreated: new Date(),
+    };
 
-  try {
-    const res = await fetch("http://localhost:3000/tuition", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" }, 
-      body: JSON.stringify(saveTuition),
-    });
+    try {
+      const res = await fetch(
+        "https://etuition-server-psi.vercel.app/tuition",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(saveTuition),
+        }
+      );
 
-   
-    const data = await res.json();
- 
+      const data = await res.json();
 
-    if (res.ok && (data.insertedId || data.acknowledged)) {
-      toast.success("Tuition post created successfully!");
-      form.reset();
-    } else {
-     
-      toast.error(data.message || "Failed to create post");
-      console.error("Server error response:", data);
+      if (res.ok && (data.insertedId || data.acknowledged)) {
+        toast.success("Tuition post created successfully!");
+        form.reset();
+      } else {
+        toast.error(data.message || "Failed to create post");
+        console.error("Server error response:", data);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error("Fetch error:", error);
-    toast.error("Something went wrong. Please try again.");
-  } finally {
-    setLoading(false); 
-  }
-};
-return(
-
+  };
+  return (
     <div className="min-h-screen mb-5 ">
       <div className="flex justify-center items-center w-full px-[7%]  ">
         <div className="card bg-base-100    shrink-0 shadow-2xl w-full">
@@ -94,8 +91,8 @@ return(
               {/* Email */}
               <label className="Email">Email</label>
               <input
-             value={user?.email || ""}
-  readOnly
+                value={user?.email || ""}
+                readOnly
                 type="email"
                 name="email"
                 className="input w-full"
@@ -128,14 +125,14 @@ return(
                 placeholder="https://..."
               />
               {/* description */}
-             
-<label className="description">Description</label>
-<textarea
-  name="description"
-  className="textarea textarea-bordered w-full"
-  placeholder="Write a short description..."
-  rows={3}
-/>
+
+              <label className="description">Description</label>
+              <textarea
+                name="description"
+                className="textarea textarea-bordered w-full"
+                placeholder="Write a short description..."
+                rows={3}
+              />
 
               {/* Study time section */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -156,7 +153,7 @@ return(
                     name="study_days_per_month"
                     className="input w-full"
                     placeholder="12"
-                      min={1}
+                    min={1}
                   />
                 </div>
               </div>

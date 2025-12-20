@@ -11,7 +11,7 @@ const TuitionDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/home/tuitions/${id}`)
+    fetch(`https://etuition-server-psi.vercel.app/tuitions/${id}`)
       .then((res) => res.json())
       .then((data) => setModel(data.result))
       .finally(() => setLoading(false));
@@ -31,7 +31,7 @@ const TuitionDetails = () => {
     weak_subjects,
     budget,
     class: studentClass,
-    date_created
+    date_created,
   } = model;
 
   const postedTime = date_created
@@ -54,7 +54,6 @@ const TuitionDetails = () => {
             {/* Header - Profile */}
             <div className="flex flex-col items-center mb-12">
               <div className="relative w-40 h-40 rounded-full overflow-hidden border-8 border-white/50 shadow-2xl ring-8 ring-cyan-300/30 transition-all hover:ring-cyan-400/60 hover:scale-105">
-              
                 <img
                   src={photo || "https://via.placeholder.com/150"}
                   alt={name}
@@ -64,7 +63,9 @@ const TuitionDetails = () => {
               <h1 className="text-4xl font-extrabold mt-6 bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
                 {name}
               </h1>
-              <p className="text-xl font-semibold text-cyan-700 mt-2">{studentClass}</p>
+              <p className="text-xl font-semibold text-cyan-700 mt-2">
+                {studentClass}
+              </p>
               <p className="text-sm text-gray-300 mt-1 bg-white/20 px-4 py-1 rounded-full">
                 Posted {postedTime}
               </p>
@@ -78,10 +79,28 @@ const TuitionDetails = () => {
                   <span className="mr-3 text-3xl">👤</span> Student Information
                 </h2>
                 <div className="space-y-4 text-lg">
-                  <p><span className="font-semibold text-gray-800">School/College:</span> {school_college}</p>
-                  <p><span className="font-semibold text-gray-800">Email:</span> {email}</p>
-                  <p><span className="font-semibold text-gray-800">Location:</span> {location}</p>
-                  <p><span className="font-semibold text-gray-800">Weak Subjects:</span> {weak_subjects}</p>
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      School/College:
+                    </span>{" "}
+                    {school_college}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-gray-800">Email:</span>{" "}
+                    {email}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      Location:
+                    </span>{" "}
+                    {location}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      Weak Subjects:
+                    </span>{" "}
+                    {weak_subjects}
+                  </p>
                 </div>
               </div>
 
@@ -91,9 +110,22 @@ const TuitionDetails = () => {
                   <span className="mr-3 text-3xl">📚</span> Tuition Requirements
                 </h2>
                 <div className="space-y-4 text-lg">
-                  <p><span className="font-semibold text-gray-800">Budget:</span> ৳{budget}</p>
-                  <p><span className="font-semibold text-gray-800">Study Time/Day:</span> {study_time_per_day}</p>
-                  <p><span className="font-semibold text-gray-800">Days/Month:</span> {study_days_per_month}</p>
+                  <p>
+                    <span className="font-semibold text-gray-800">Budget:</span>{" "}
+                    ৳{budget}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      Study Time/Day:
+                    </span>{" "}
+                    {study_time_per_day}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      Days/Month:
+                    </span>{" "}
+                    {study_days_per_month}
+                  </p>
                 </div>
               </div>
             </div>
@@ -103,7 +135,9 @@ const TuitionDetails = () => {
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                 <span className="mr-3 text-3xl">📝</span> Description
               </h2>
-              <p className="text-gray-700 leading-relaxed text-base">{description}</p>
+              <p className="text-gray-700 leading-relaxed text-base">
+                {description}
+              </p>
             </div>
 
             {/* Apply Button */}
@@ -128,15 +162,30 @@ const TuitionDetails = () => {
       {/* Optional: Custom CSS for subtle pulse if not using plugin */}
       <style jsx>{`
         @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
-        .animate-fade-in { animation: fade-in 1s ease-out; }
+        .animate-fade-in {
+          animation: fade-in 1s ease-out;
+        }
         @keyframes pulse-subtle {
-          0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
-          50% { box-shadow: 0 0 30px rgba(13, 202, 190, 0.6); }
+          0%,
+          100% {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+          }
+          50% {
+            box-shadow: 0 0 30px rgba(13, 202, 190, 0.6);
+          }
         }
-        .animate-pulse-subtle { animation: pulse-subtle 4s infinite; }
+        .animate-pulse-subtle {
+          animation: pulse-subtle 4s infinite;
+        }
       `}</style>
     </div>
   );

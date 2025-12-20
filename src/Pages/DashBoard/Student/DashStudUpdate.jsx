@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-
-
 import toast from "react-hot-toast";
-import AuthProvider, { AuthContext } from "../../../Components/Provider/AuthProvider";
+import AuthProvider, {
+  AuthContext,
+} from "../../../Components/Provider/AuthProvider";
 import Loader from "../../../Components/Loader";
 import { useNavigate, useParams } from "react-router";
-
-
 
 const DashStudUpdate = () => {
   const { id } = useParams();
@@ -17,14 +15,13 @@ const DashStudUpdate = () => {
 
   // Data get from DB
   useEffect(() => {
-    if (!user) return; 
-    fetch(`http://localhost:3000/home/tuitions/${id}`)
-      .then(res => res.json())
+    if (!user) return;
+    fetch(`https://etuition-server-psi.vercel.app/tuitions/${id}`)
+      .then((res) => res.json())
       .then((data) => setModel(data.result))
       .finally(() => setLoading(false));
   }, [id, user]);
 
- 
   const {
     name,
     classes,
@@ -39,62 +36,62 @@ const DashStudUpdate = () => {
     description,
     dateCreated,
     _id,
-  } = model || {}; 
+  } = model || {};
 
+  const handleSub = async (e) => {
+    e.preventDefault();
 
-const handleSub = async (e) => {
-  e.preventDefault();
+    if (!_id) {
+      toast.error("Tuition data not loaded yet");
+      return;
+    }
 
-  if (!_id) {
-    toast.error("Tuition data not loaded yet");
-    return;
-  }
+    setLoading(true);
+    const form = e.target;
 
-  setLoading(true);
-  const form = e.target;
+    const updatedTuition = {
+      name: form.name.value,
+      classes: form.classes.value,
+      email: user.email,
+      photo: form.photo.value || "",
+      school_college: form.school.value,
+      location: form.location.value,
+      study_time_per_day: form.study_time_per_day.value,
+      study_days_per_month: form.study_days_per_month.value,
+      weak_subjects: form.weak_subjects.value,
+      budget: form.budget.value,
+      description: form.description.value,
+      dateCreated: new Date(),
+    };
 
-  const updatedTuition = {
-    name: form.name.value,
-    classes: form.classes.value,
-    email: user.email,
-    photo: form.photo.value || "",
-    school_college: form.school.value,
-    location: form.location.value,
-    study_time_per_day: form.study_time_per_day.value,
-    study_days_per_month: form.study_days_per_month.value,
-    weak_subjects: form.weak_subjects.value,
-    budget: form.budget.value,
-    description: form.description.value,
-    dateCreated: new Date(),
+    try {
+      const res = await fetch(
+        `https://etuition-server-psi.vercel.app/tuition/${_id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedTuition),
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok && data.modifiedCount) {
+        toast.success("Tuition post updated successfully!");
+        navigate(-1);
+      } else {
+        toast.error(data.message || "Failed to update post");
+        console.error("Server error response:", data);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  try {
-    const res = await fetch(`http://localhost:3000/tuition/${_id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedTuition),
-    });
-
-    const data = await res.json();
-  
-
-    if (res.ok && data.modifiedCount) {
-      toast.success("Tuition post updated successfully!");
-      navigate(-1);
-    } else {
-      toast.error(data.message || "Failed to update post");
-      console.error("Server error response:", data);
-    }
-  } catch (error) {
-    console.error("Fetch error:", error);
-    toast.error("Something went wrong. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
-
-return(
-
+  return (
     <div className="min-h-screen mb-10 ">
       <div className="flex justify-center items-center w-full px-[7%]  ">
         <div className="card bg-base-100    shrink-0 shadow-2xl w-full">
@@ -112,7 +109,6 @@ return(
                 placeholder="Enter your name"
                 required
                 defaultValue={name}
-               
               />
               {/* class */}
               <label className="class">Class</label>
@@ -122,13 +118,13 @@ return(
                 className="input w-full"
                 placeholder="Class"
                 required
-                    defaultValue={classes}
+                defaultValue={classes}
               />
               {/* Email */}
               <label className="Email">Email</label>
               <input
-             value={user?.email || ""}
-  readOnly
+                value={user?.email || ""}
+                readOnly
                 type="email"
                 name="email"
                 className="input w-full"
@@ -152,7 +148,7 @@ return(
                 name="location"
                 className="input w-full"
                 placeholder="Location"
-                  defaultValue={location}
+                defaultValue={location}
               />
               {/* Photo */}
               <label className="Photo">Photo Url</label>
@@ -161,18 +157,18 @@ return(
                 name="photo"
                 className="input w-full"
                 placeholder="https://..."
-                 defaultValue={photo}
+                defaultValue={photo}
               />
               {/* description */}
-             
-<label className="description">Description</label>
-<textarea
-  name="description"
-  className="textarea textarea-bordered w-full"
-  placeholder="Write a short description..."
-  rows={3}
-  defaultValue={description}
-/>
+
+              <label className="description">Description</label>
+              <textarea
+                name="description"
+                className="textarea textarea-bordered w-full"
+                placeholder="Write a short description..."
+                rows={3}
+                defaultValue={description}
+              />
 
               {/* Study time section */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -183,8 +179,7 @@ return(
                     name="study_time_per_day"
                     className="input w-full"
                     placeholder="1.5 hours"
-                      defaultValue={study_time_per_day}
-
+                    defaultValue={study_time_per_day}
                   />
                 </div>
 
@@ -195,9 +190,8 @@ return(
                     name="study_days_per_month"
                     className="input w-full"
                     placeholder="12"
-                      min={1}
-                       defaultValue={study_days_per_month}
-
+                    min={1}
+                    defaultValue={study_days_per_month}
                   />
                 </div>
               </div>
@@ -212,7 +206,7 @@ return(
                     className="input w-full"
                     placeholder="Math"
                     required
-                     defaultValue={weak_subjects}
+                    defaultValue={weak_subjects}
                   />
                 </div>
 
@@ -224,7 +218,7 @@ return(
                     className="input w-full"
                     placeholder="5000 BDT"
                     required
-                     defaultValue={budget}
+                    defaultValue={budget}
                   />
                 </div>
               </div>

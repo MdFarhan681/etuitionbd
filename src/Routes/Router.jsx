@@ -29,9 +29,13 @@ export const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
-          loader: async () => {
-          const tuitions = await fetch("http://localhost:3000/home/tuitions");
-          const tuitors = await fetch("http://localhost:3000/home/tuitors");
+        loader: async () => {
+          const tuitions = await fetch(
+            "https://etuition-server-psi.vercel.app/home/tuitions"
+          );
+          const tuitors = await fetch(
+            "https://etuition-server-psi.vercel.app/home/tuitors"
+          );
 
           return {
             tuitions: await tuitions.json(),
@@ -41,38 +45,44 @@ export const router = createBrowserRouter([
       },
       {
         path: "/allTuitions",
-        
 
-        element: <PrivateRouth>        <Alltuitions></Alltuitions></PrivateRouth>,
-        
-
-        loader: () =>
-            fetch("http://localhost:3000/tuitions"),
-        
+        element: (
+          <PrivateRouth>
+            {" "}
+            <Alltuitions></Alltuitions>
+          </PrivateRouth>
+        ),
       },
       {
         path: "/allTuitors",
-       element: <PrivateRouth>        <AllTuitors></AllTuitors></PrivateRouth>,
-        
-        loader: () =>   fetch("http://localhost:3000/tuitors"),
+        element: (
+          <PrivateRouth>
+            {" "}
+            <AllTuitors></AllTuitors>
+          </PrivateRouth>
+        ),
       },
       {
         path: "/contact",
         Component: Contact,
-     
       },
       {
         path: "/about",
         Component: About,
-     
-      },,
+      },
+      ,
       {
         path: "/tuitionDetails/:id",
-        element: <PrivateRouth>        <TuitionDetails></TuitionDetails></PrivateRouth>,
-       
+        element: (
+          <PrivateRouth>
+            {" "}
+            <TuitionDetails></TuitionDetails>
+          </PrivateRouth>
+        ),
       },
     ],
-  },{
+  },
+  {
     path: "/auth",
     Component: Auth,
     children: [
@@ -89,50 +99,54 @@ export const router = createBrowserRouter([
         Component: Forget,
       },
     ],
-  },{
+  },
+  {
     path: "/dashboard",
-     element: <PrivateRouth>        <Dashboard></Dashboard></PrivateRouth>,
+    element: (
+      <PrivateRouth>
+        {" "}
+        <Dashboard></Dashboard>
+      </PrivateRouth>
+    ),
     children: [
       {
-  path: "/dashboard/student",
-  Component: Student,
-  children: [
-    {
-      index: true,
-      element: <Navigate to="myTuition" replace />
-    },
-    {
-      path: "myTuition",
-      Component: DashTuition,
-    },
-    {
-      path: "post",
-      Component: DashPost,
-    },
-    {
-       path: "/dashboard/student/update/:id",
-      Component: DashStudUpdate,
-    },
-    {
-      path: "appliedTutor",
-      Component: DashApply,
-    },
-    {
-      path: "payment",
-      Component: DashPayment,
-    },
-    {
-      path: "setting",
-      Component: DashStudSetting,
-    },
-  ],
-}
-,
+        path: "/dashboard/student",
+        Component: Student,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="myTuition" replace />,
+          },
+          {
+            path: "myTuition",
+            Component: DashTuition,
+          },
+          {
+            path: "post",
+            Component: DashPost,
+          },
+          {
+            path: "/dashboard/student/update/:id",
+            Component: DashStudUpdate,
+          },
+          {
+            path: "appliedTutor",
+            Component: DashApply,
+          },
+          {
+            path: "payment",
+            Component: DashPayment,
+          },
+          {
+            path: "setting",
+            Component: DashStudSetting,
+          },
+        ],
+      },
       {
         path: "/dashboard/tutor",
         Component: Tutor,
       },
-     
     ],
   },
 ]);

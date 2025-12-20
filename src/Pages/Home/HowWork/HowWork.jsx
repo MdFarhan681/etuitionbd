@@ -36,9 +36,7 @@ const HowWork = () => {
           </span>
         </div>
       </Motion>
-      {/* Tag */}
-
-      {/* Title */}
+     
       <Motion delay={0.1}>
         <h2 className="text-3xl md:text-4xl font-bold text-center mt-4 text-gray-900">
           How the Platform Works
@@ -50,26 +48,24 @@ const HowWork = () => {
         </p>
       </Motion>
 
-      {/* Cards */}
       <Motion delay={0.2}>   <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-[90%] md:w-[80%] mx-auto">
         {steps.map((step) => (
           <div
             key={step.id}
             className="relative bg-gradient-to-br from-cyan-100/30 via-blue-50 to-indigo-100/20 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
           >
-            {/* Number badge */}
+
             <div className="absolute -top-3 left-6 bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-lg">
               {step.id}
             </div>
 
-            {/* Icon */}
             <div
               className={`w-16 h-16 ${step.bg} rounded-xl flex items-center justify-center mx-auto`}
             >
               {step.icon}
             </div>
 
-            {/* Title */}
+
             <h3 className="text-lg font-bold text-center mt-6 text-gray-900">
               {step.title}
             </h3>

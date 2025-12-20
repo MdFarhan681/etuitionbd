@@ -32,110 +32,107 @@ const Register = () => {
     </button>
   );
 
+  const handleSub = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-const handleSub = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
+    const phone = form.phone.value;
 
-  const form = e.target;
-  const name = form.name.value;
-  const email = form.email.value;
-  const photo = form.photo.value;
-  const password = form.password.value;
-  const phone = form.phone.value;
-
-  // Password validation
-  if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
-    toast.error("Password must include uppercase, lowercase, and min 6 chars");
-    setLoading(false);
-    return;
-  }
-
-  try {
-
-    const userCredential = await createuser(email, password);
-    const firebaseUser = userCredential.user;
-
-    
-    await updateProfile(firebaseUser, { displayName: name, photoURL: photo });
-
-  
-    const saveUser = {
-      uid: firebaseUser.uid,
-      name,
-      email,
-      photo,
-      phone,
-      role,
-      createdAt: new Date(),
-    };
-
-    const res = await fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(saveUser),
-    });
-
-    const data = await res.json();
-
-    if (data.insertedId || data.acknowledged) {
-      toast.success("Signup Successful");
-      setuser(firebaseUser);
-   
-      form.reset();
-            window.location.href = "/"; 
-    } else {
-      toast.error("Signup failed. Please try again.");
-    }
-  } catch (error) {
-    if (error.code === "auth/email-already-in-use") {
-      toast.error("This email is already registered. Please login.");
-    } else if (error.code === "auth/invalid-email") {
-      toast.error("Invalid email.");
-    } else {
-      toast.error("Signup failed. Please try again.");
-      console.error(error);
-    }
-  } finally {
-    setLoading(false);
-  }
-};
-
-// Google Signup
-const handleGoogle = async () => {
-  setLoading(true);
-
-  try {
-    const firebaseUser = await googleSignIn(); 
-
-    // console.log("Firebase User:", firebaseUser);
-
-    if (!firebaseUser) {
-      throw new Error("Firebase user not found");
+    // Password validation
+    if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
+      toast.error(
+        "Password must include uppercase, lowercase, and min 6 chars"
+      );
+      setLoading(false);
+      return;
     }
 
-    const saveUser = {
-      uid: firebaseUser.uid,
-      name: firebaseUser.displayName,
-      email: firebaseUser.email,
-      photo: firebaseUser.photoURL,
-      phone: firebaseUser.phoneNumber || "",
-      role: "student",
-      createdAt: new Date(),
-    };
+    try {
+      const userCredential = await createuser(email, password);
+      const firebaseUser = userCredential.user;
 
-    await axios.post("http://localhost:3000/users", saveUser);
+      await updateProfile(firebaseUser, { displayName: name, photoURL: photo });
 
-    toast.success("Google signup successful!");
-    navigate("/");
-  } catch (error) {
-    console.error("Google Sign-In Error:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+      const saveUser = {
+        uid: firebaseUser.uid,
+        name,
+        email,
+        photo,
+        phone,
+        role,
+        createdAt: new Date(),
+      };
 
+      const res = await fetch("https://etuition-server-psi.vercel.app/users", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(saveUser),
+      });
 
+      const data = await res.json();
+
+      if (data.insertedId || data.acknowledged) {
+        toast.success("Signup Successful");
+        setuser(firebaseUser);
+
+        form.reset();
+        window.location.href = "/";
+      } else {
+        toast.error("Signup failed. Please try again.");
+      }
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("This email is already registered. Please login.");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Invalid email.");
+      } else {
+        toast.error("Signup failed. Please try again.");
+        console.error(error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Google Signup
+  const handleGoogle = async () => {
+    setLoading(true);
+
+    try {
+      const firebaseUser = await googleSignIn();
+
+      if (!firebaseUser) {
+        throw new Error("Firebase user not found");
+      }
+
+      const saveUser = {
+        uid: firebaseUser.uid,
+        name: firebaseUser.displayName,
+        email: firebaseUser.email,
+        photo: firebaseUser.photoURL,
+        phone: firebaseUser.phoneNumber || "",
+        role: "student",
+        createdAt: new Date(),
+      };
+
+      await axios.post(
+        "https://etuition-server-psi.vercel.app/users",
+        saveUser
+      );
+
+      toast.success("Google signup successful!");
+      navigate("/");
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen ">
@@ -146,12 +143,11 @@ const handleGoogle = async () => {
             Register Your Account
           </h1>
           <div className="card-body w-full">
-              {/* Role Selector */}
-          <div className="flex gap-1 bg-gray-100 rounded-xl mb-5 w-full ">
-            {roleBtn("student", "I'm a Student")}
-            {roleBtn("tutor", "I'm a Tutor")}
-           
-          </div>
+            {/* Role Selector */}
+            <div className="flex gap-1 bg-gray-100 rounded-xl mb-5 w-full ">
+              {roleBtn("student", "I'm a Student")}
+              {roleBtn("tutor", "I'm a Tutor")}
+            </div>
             <form onSubmit={handleSub} className="fieldset">
               {/* Name */}
               <label className="label">Name</label>
@@ -181,7 +177,7 @@ const handleGoogle = async () => {
                 className="input w-full"
                 placeholder="https://..."
               />
-               {/* Phone */}
+              {/* Phone */}
               <label className="label">Phone</label>
               <input
                 type="text"

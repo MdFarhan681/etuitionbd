@@ -5,10 +5,9 @@ import { AuthContext } from "../../../Components/Provider/AuthProvider";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 
-const StudDashCard = ({ product,onDelete }) => {
+const StudDashCard = ({ product, onDelete }) => {
+  const { user } = useContext(AuthContext);
 
-   const { user } = useContext(AuthContext);
- 
   const {
     name,
     classes,
@@ -24,42 +23,39 @@ const StudDashCard = ({ product,onDelete }) => {
     dateCreated,
     _id,
   } = product;
-const handleDelete = () => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then((result) => {
-    if (!result.isConfirmed) return;
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (!result.isConfirmed) return;
 
-    fetch(`http://localhost:3000/tuition/${_id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${user?.accessToken}`,
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.deletedCount > 0) {
-          Swal.fire("Deleted!", "Post has been deleted.", "success");
-          
-      
-          onDelete(_id);
-        } else {
-          Swal.fire("Error!", "Delete failed.", "error");
-        }
+      fetch(`https://etuition-server-psi.vercel.app/tuition/${_id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${user?.accessToken}`,
+        },
       })
-      .catch(() => {
-        Swal.fire("Error!", "Something went wrong.", "error");
-      });
-  });
-};
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            Swal.fire("Deleted!", "Post has been deleted.", "success");
 
-
+            onDelete(_id);
+          } else {
+            Swal.fire("Error!", "Delete failed.", "error");
+          }
+        })
+        .catch(() => {
+          Swal.fire("Error!", "Something went wrong.", "error");
+        });
+    });
+  };
 
   return (
     <div
@@ -85,10 +81,8 @@ const handleDelete = () => {
 
         {/* Actions */}
         <div className="flex gap-3 text-gray-500">
-        
-
-          <NavLink product={product}
-           
+          <NavLink
+            product={product}
             to={`/dashboard/student/update/${_id}`}
             className=" hover:text-blue-500 transition "
           >
@@ -96,7 +90,10 @@ const handleDelete = () => {
             <FaEdit />
           </NavLink>
 
-          <button onClick={handleDelete} className="hover:text-red-500 transition">
+          <button
+            onClick={handleDelete}
+            className="hover:text-red-500 transition"
+          >
             <FaTrash />
           </button>
         </div>
