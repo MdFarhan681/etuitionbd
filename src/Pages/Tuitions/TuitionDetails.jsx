@@ -40,7 +40,7 @@ const TuitionDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-100 via-teal-50 to-indigo-100 relative overflow-hidden">
-      {/* Animated Background Gradient Orbs for Depth */}
+   
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-40 -right-40 w-80 h-80 bg-teal-400/30 rounded-full blur-3xl animate-pulse delay-1000"></div>

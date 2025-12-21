@@ -20,6 +20,9 @@ import DashPayment from "../Pages/DashBoard/Student/DashPayment";
 import DashStudSetting from "../Pages/DashBoard/Student/DashStudSetting";
 import DashStudUpdate from "../Pages/DashBoard/Student/DashStudUpdate";
 import PrivateRouth from "../Components/PrivateRouth";
+import DashTutorApply from "../Pages/DashBoard/Tuitors/DashTutorApply";
+import DashOngoing from "../Pages/DashBoard/Tuitors/DashOngoing";
+import DashTutorHis from "../Pages/DashBoard/Tuitors/DashTutorHis";
 
 export const router = createBrowserRouter([
   {
@@ -146,6 +149,12 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/tutor",
         Component: Tutor,
+        children: [
+          { index: true, element: <Navigate to="myApplication" replace /> },
+          { path: "myApplication", Component: DashTutorApply },
+          { path: "ongoingTution", Component: DashOngoing },
+          { path: "history", Component: DashTutorHis },
+        ],
       },
     ],
   },
