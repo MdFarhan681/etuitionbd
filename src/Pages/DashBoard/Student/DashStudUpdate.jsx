@@ -81,10 +81,10 @@ const DashStudUpdate = () => {
         navigate(-1);
       } else {
         toast.error(data.message || "Failed to update post");
-        console.error("Server error response:", data);
+        // console.error("Server error response:", data);
       }
     } catch (error) {
-      console.error("Fetch error:", error);
+      // console.error("Fetch error:", error);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

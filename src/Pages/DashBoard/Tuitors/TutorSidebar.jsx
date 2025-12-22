@@ -16,7 +16,6 @@ const menuItems = [
 { name: "Revenue History", path: "/dashboard/tutor/history", icon: FiClock  },
 
 
-// { name: "Settings", path: "/dashboard/tutor/setting", icon: FiSettings },
 
 ];
 

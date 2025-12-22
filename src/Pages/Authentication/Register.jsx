@@ -92,7 +92,7 @@ const Register = () => {
         toast.error("Invalid email.");
       } else {
         toast.error("Signup failed. Please try again.");
-        console.error(error);
+        // console.error(error);
       }
     } finally {
       setLoading(false);
@@ -128,7 +128,7 @@ const Register = () => {
       toast.success("Google signup successful!");
       navigate("/");
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
+      // console.error("Google Sign-In Error:", error);
     } finally {
       setLoading(false);
     }
@@ -267,6 +267,7 @@ const Register = () => {
               </div>
             </form>
           </div>
+          
         </div>
       </div>
     </div>

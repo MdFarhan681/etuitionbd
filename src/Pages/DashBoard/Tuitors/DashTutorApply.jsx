@@ -1,86 +1,86 @@
-
-import React, {  useContext, useEffect, useState } from "react";
-import { FiEdit2, FiTrash2 } from "react-icons/fi";
-
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import Loader from '../../../Components/Loader';
+import Loader from "../../../Components/Loader";
 import DashTutorCard from "./DashTutorCard";
-
 import DashTutorHeadCard from "./DashTutorHeadCard";
 import { AuthContext } from "../../../Components/Provider/AuthProvider";
 
 const DashTutorApply = () => {
-    const [allProducts, setAllProducts] = useState([]);
-      const navigate = useNavigate();
-    
-      const [displayProducts, setDisplayProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const [displayProducts, setDisplayProducts] = useState([]);
+  const [loading, setloading] = useState(false);
 
-      const [category, setCategory] = useState("");
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [products, setproducts] = useState([]);
 
-      const [sort, setSort] = useState("");
-      const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!user?.email) return;
 
-      const { user } = useContext(AuthContext);
+    const fetchApplications = async () => {
+      setloading(true);
+      try {
+        const res = await axios.get(
+          "https://etuition-server-psi.vercel.app/dashboard/tutor/application",
+          { params: { email: user.email } }
+        );
 
+        // console.log("API Response:", res.data); // 
 
+        if (res.data.success && Array.isArray(res.data.data)) {
+          setAllProducts(res.data.data);
+          setDisplayProducts(res.data.data);
+        } else {
+          setAllProducts([]);
+          setDisplayProducts([]);
+        }
+      } catch (err) {
+        // console.error("Fetch error:", err.response?.data || err.message);
+        setAllProducts([]);
+        setDisplayProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-// useEffect(() => {
-//   if (!user?.email) return;
+    fetchApplications();
+  }, [user]);
 
-//   const fetchAllProducts = async () => {
-//     setLoading(true);
-//     try {
-//      const res = await axios.get(
-//   "https://etuition-server-psi.vercel.app/dashboard/tutor/application",
-//   {
-//     params: { email: user.email },
-//   }
-// );
-
-// setAllProducts(res.data);
-// setDisplayProducts(res.data);
-
-//     } catch (err) {
-//       console.error("Failed to load products:", err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   fetchAllProducts();
-// }, [user]);
-
-  const handleDelete = (id) => {
-    // setAllProducts((prev) => prev.filter((item) => item._id !== id));
-    // setDisplayProducts((prev) => prev.filter((item) => item._id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(
+        `https://etuition-server-psi.vercel.app/dashboard/tutor/application/${id}`
+      );
+      setAllProducts((prev) => prev.filter((item) => item._id !== id));
+      setDisplayProducts((prev) => prev.filter((item) => item._id !== id));
+    } catch (err) {
+      // console.error("Failed to delete:", err);
+    }
   };
 
+  if (loading) return <Loader />;
+
   return (
-     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 md:p-6">
-      
-      {/* Desktop Header */}
-      {/* <div className="hidden md:grid grid-cols-7 gap-4 text-sm text-gray-400 font-medium mb-3">
-        {/* <span>Subject</span>
-        <span>Class</span>
-        <span>Location</span>
-        <span>Expected Salary</span>
-        <span>Status</span>
-        <span>Applied</span>
-        <span className="text-right">Actions</span> *
-       
-      </div> */}
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 md:p-6">
+      {/* Header */}
+      <DashTutorHeadCard />
 
-
-      <div className="header">
-         <DashTutorHeadCard></DashTutorHeadCard>
-      </div>
-
-      <DashTutorCard></DashTutorCard>
-
-    
+      {Array.isArray(displayProducts) && displayProducts.length > 0 ? (
+        displayProducts.map((product) => (
+          <DashTutorCard
+            key={product._id}
+            product={product}
+            onDelete={() => handleDelete(product._id)}
+          />
+        ))
+      ) : (
+        <p className="text-center text-gray-500 py-10">
+          No applications found.
+        </p>
+      )}
     </div>
   );
 };
 
-export default DashTutorApply
+export default DashTutorApply;

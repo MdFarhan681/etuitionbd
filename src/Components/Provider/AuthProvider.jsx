@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
           setDbUser(null);
         }
       } catch (error) {
-        console.error("DB user fetch failed:", error);
+        // console.error("DB user fetch failed:", error);
         setDbUser(null);
       } finally {
         setloading(false);

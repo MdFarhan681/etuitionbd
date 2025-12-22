@@ -52,10 +52,8 @@ const DashPost = () => {
         form.reset();
       } else {
         toast.error(data.message || "Failed to create post");
-        console.error("Server error response:", data);
       }
     } catch (error) {
-      console.error("Fetch error:", error);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

@@ -3,13 +3,15 @@ import { AuthContext } from "../../Components/Provider/AuthProvider";
 import Loader from "../../Components/Loader";
 import { formatDistanceToNow } from "date-fns";
 import { useContext, useEffect, useState } from "react";
-
+import image from "../../assets/image.png";
+import { FiBookOpen, FiUser, FiFileText } from "react-icons/fi";
+import Modal from "../../Components/Modal";
 const TuitionDetails = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
   const [model, setModel] = useState({});
   const [loading, setLoading] = useState(true);
-
+const [isApplyOpen, setIsApplyOpen] = useState(false);
   useEffect(() => {
     fetch(`https://etuition-server-psi.vercel.app/tuitions/${id}`)
       .then((res) => res.json())
@@ -38,16 +40,19 @@ const TuitionDetails = () => {
     ? formatDistanceToNow(new Date(date_created), { addSuffix: true })
     : "Unknown";
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-100 via-teal-50 to-indigo-100 relative overflow-hidden">
-   
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 -right-40 w-80 h-80 bg-teal-400/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
 
-      <div className="relative z-10 py-12 px-6">
+
+    const tutorApply =()=>{
+            
+<button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
+
+    }
+
+  return (
+    <div className="min-h-screen relative overflow-hidden">
+      <img className="h-40 w-full" src={image} alt="" />
+
+      <div className="relative z-10 pt-5 pb-15 px-6">
         {/* Main Glass Card */}
         <div className="max-w-4xl mx-auto">
           <div className="rounded-3xl shadow-2xl overflow-hidden backdrop-blur-2xl bg-white/10 border border-white/20 p-10 animate-fade-in">
@@ -71,12 +76,14 @@ const TuitionDetails = () => {
               </p>
             </div>
 
-            {/* Info Grid - Two Floating Glass Cards */}
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               {/* Student Info Card */}
-              <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2">
+              <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <span className="mr-3 text-3xl">👤</span> Student Information
+                  <span className="mr-3 text-3xl">
+                    <FiUser className="text-2xl text-green-600" />{" "}
+                  </span>{" "}
+                  Student Information
                 </h2>
                 <div className="space-y-4 text-lg">
                   <p>
@@ -104,10 +111,12 @@ const TuitionDetails = () => {
                 </div>
               </div>
 
-              {/* Tuition Details Card */}
-              <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2">
+              <div className="p-8 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <span className="mr-3 text-3xl">📚</span> Tuition Requirements
+                  <span className="mr-3 text-3xl">
+                    <FiBookOpen className="text-2xl text-blue-400 font-bold" />
+                  </span>{" "}
+                  Tuition Requirements
                 </h2>
                 <div className="space-y-4 text-lg">
                   <p>
@@ -130,63 +139,38 @@ const TuitionDetails = () => {
               </div>
             </div>
 
-            {/* Description Card */}
-            <div className="p-8 rounded-2xl bg-white/25 backdrop-blur-xl border border-white/30 shadow-xl">
+            <div className="p-8 rounded-2xl bg-white/25 backdrop-blur-xl border border-white/30 shadow-sm">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span className="mr-3 text-3xl">📝</span> Description
+                <span className="mr-3 text-3xl">
+                  <FiFileText className="text-xl font-bold text-teal-500" />
+                </span>{" "}
+                Description
               </h2>
               <p className="text-gray-700 leading-relaxed text-base">
                 {description}
               </p>
             </div>
 
-            {/* Apply Button */}
             <div className="mt-12 flex justify-center">
-              <button
-                disabled={!user}
-                className="px-12 py-4 rounded-2xl font-bold text-white text-lg
-                           bg-gradient-to-r from-cyan-500 to-teal-600
-                           hover:from-cyan-600 hover:to-teal-700
-                           shadow-2xl hover:shadow-cyan-500/50
-                           transform hover:scale-105 active:scale-95
-                           transition-all duration-300 animate-pulse-subtle
-                           disabled:bg-gray-500 disabled:cursor-not-allowed disabled:animate-none"
-              >
-                {user ? "Apply as Tutor" : "Login to Apply"}
-              </button>
+             <button
+  onClick={() => setIsApplyOpen(true)}
+  disabled={!user}
+  className="w-40 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-sm py-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 px-6 mr-4"
+>
+  {user ? "Apply as Tutor" : "Login to Apply"}
+</button>
             </div>
+           <Modal
+  open={isApplyOpen}
+  onClose={() => setIsApplyOpen(false)}
+  tuition={model}
+/>
+
+
+
           </div>
         </div>
       </div>
-
-      {/* Optional: Custom CSS for subtle pulse if not using plugin */}
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-        @keyframes pulse-subtle {
-          0%,
-          100% {
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-          }
-          50% {
-            box-shadow: 0 0 30px rgba(13, 202, 190, 0.6);
-          }
-        }
-        .animate-pulse-subtle {
-          animation: pulse-subtle 4s infinite;
-        }
-      `}</style>
     </div>
   );
 };

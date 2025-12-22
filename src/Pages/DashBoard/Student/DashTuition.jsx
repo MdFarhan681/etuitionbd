@@ -27,7 +27,7 @@ const DashTuition = () => {
         setAllProducts(data);
         setDisplayProducts(data);
       } catch (err) {
-        console.error("Failed to load products:", err);
+        // console.error("Failed to load products:", err);
       } finally {
         setLoading(false);
       }
